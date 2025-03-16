@@ -1,11 +1,8 @@
-# This config was automatically generated from your source code
-# Stacks detected: cicd:github-actions:.github/workflows,deps:python:.,deps:rust:.
 version: 2.1
 orbs:
   python: circleci/python@2
 jobs:
   test-python:
-    # Install dependencies and run tests
     docker:
       - image: cimg/python:3.8-node
     steps:
@@ -30,11 +27,9 @@ jobs:
           paths:
             - ~/.cargo
   deploy:
-    # This is an example deploy job, not actually used by the workflow
     docker:
       - image: cimg/base:stable
     steps:
-      # Replace this with steps to deploy to users
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
@@ -46,7 +41,7 @@ workflows:
     jobs:
       - test-python
       - test-rust
-    # - deploy:
-    #     requires:
-    #       - test-python
-    #       - test-rust
+      - deploy:
+          requires:
+            - test-python
+            - test-rust
